@@ -22,7 +22,7 @@ define Package/hellocmakeapp
 	SECTION:=utils
 	CATEGORY:=Utilities
 	TITLE:=CMake OpenWrt cross compile example for applications
-	DEPENDS:=+uclibcxx +libhellocmakemm
+    DEPENDS:=+libstdcpp +libhellocmakemm
 endef
 
 define Build/Prepare

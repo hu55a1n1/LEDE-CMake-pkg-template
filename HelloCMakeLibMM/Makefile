@@ -23,7 +23,7 @@ define Package/libhellocmakemm
 	SECTION:=libs
 	CATEGORY:=Libraries
 	TITLE:=CMake OpenWrt cross compile example for shared and static libs
-	DEPENDS:=+uclibcxx
+    DEPENDS:=+libstdcpp
 endef
 
 define Build/Prepare
