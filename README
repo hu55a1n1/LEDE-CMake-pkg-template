@@ -1,0 +1,97 @@
+Copyright (C) 2008 Frank Cervenka
+This is free software, licensed under the GNU General Public License v2.
+
+Here you are, so you successfully did "tar zxvf CMakeOpenWrtExamples.tar.gz"
+or something similar.
+
+This package demonstrates how you can build apps and libs (shared or static)
+for an OpenWRT target with the CMake build system.
+You also can build these apps and libs for the host system without changing
+the buildfiles or the sources.
+
+1. What you need
+
+I don't know.
+Today (01/11/2008) I use 2.6.23-gentoo-r3, gcc-4.1.2 and cmake-2.4.6-r1 
+
+2. Build lib for host:
+
+go to HelloCMakeLibMM/src/
+./clean.sh
+cmake .
+make
+
+2.1. Install lib on host:
+
+sudo make install
+
+libs will be installed in /usr/local/lib/
+headers will be installed in /usr/local/include/libhellocmakemm/
+
+2.2. Uninstall lib from host:
+
+sudo make uninstall
+
+3. Build app for host (lib needs to be build and installed on host):
+
+go to HelloCMakeApp/src/
+./clean.sh
+cmake .
+make
+
+3.1. Install app on host:
+
+sudo make install
+
+app will be installed in /usr/local/bin/
+
+3.2. Run app
+
+hellocmakeapp
+
+3.3. Uninstall app from host:
+
+sudo make uninstall
+
+4. Build lib for OpenWRT target:
+
+symlink HelloCMakeLibMM in your OpenWRT/trunk/package/ dir
+go to your OpenWRT/trunk/ dir
+make menuconfig
+select Libraries->libhellocmakemm as module
+save and exit
+make package/HelloCMakeLibMM-compile V=99
+
+5. Build app for OpenWRT target:
+
+symlink HelloCMakeApp in your OpenWRT/trunk/package/ dir
+go to your OpenWRT/trunk/ dir
+make menuconfig
+select Utilities->hellocmakeapp as module
+save and exit
+make package/HelloCMakeApp-compile V=99
+
+6. Install lib and app on router
+You decide...
+...fast hit: scp libs and app to router (not recommended, uclibcxx has
+already to be installed on the router)
+...my way:
+go to OpenWRT/trunk/ dir
+make package/index
+cp bin/* /var/www/localhost/htdocs/openwrt/mips/9456/ -R (my apache home)
+ssh or minicom to router
+ipkg update (apache needs to be running on host and routers /etc/ipkg.conf needs to
+point to it)
+ipkg install hellocmakeapp (pulls deps in)
+
+7. Run app on Router
+hellocmakeapp
+
+8. Misc
+Questions, praise, bugs, donations, critiques, suggestions and all this stuff are welcome:
+f.cervenka@gmx.net
+
+10. Credits
+Thanks to pix and skip
+
+Good luck!
